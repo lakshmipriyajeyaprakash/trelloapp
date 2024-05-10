@@ -43,7 +43,10 @@ const PageBoard = ({ filtered }) => {
                       </ul>
                     ))
                   ) : (
-                    <textArea onChange={handleAddList}>Add List Title</textArea>
+                    <textArea
+                      onChange={handleAddList}
+                      placeholder="Add List Title"
+                    ></textArea>
                   )}
                 </div>
               </div>

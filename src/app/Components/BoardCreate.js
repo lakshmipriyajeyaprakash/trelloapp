@@ -11,8 +11,6 @@ const BoardCreate = () => {
   const dispatch = useAppDispatch();
   const boards = useAppSelector((state) => state.boards);
   console.log(boards.length);
-  const newBoard = boards[boards.length - 1]; // Get the last board (newly added)
-  const newBoardId = newBoard.boardId;
   const router = useRouter();
   const [boardTitle, setBoardTitle] = useState("");
   const [background, setBackground] = useState("");
@@ -25,7 +23,8 @@ const BoardCreate = () => {
     router.push(`/boards/${boardId}`);
     setBoardTitle("");
   };
-
+  const buttonDisabled =
+    boardTitle.trim() === "" || background === "" ? true : false;
   return (
     <div>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
@@ -75,7 +74,12 @@ const BoardCreate = () => {
         </div>
         <button
           type="submit"
-          className="inline-block px-4 py-2 text-sm font-medium leading-5 text-white uppercase bg-indigo-600 rounded-lg hover:bg-indigo-500 focus:outline-none focus:bg-indigo-700"
+          className={`${
+            buttonDisabled
+              ? "hover:bg-white border-slate-800 cursor-not-allowed"
+              : "inline-block px-4 py-2 text-sm font-medium leading-5 text-white uppercase bg-indigo-600 rounded-lg hover:bg-indigo-500 focus:outline-none focus:bg-indigo-700"
+          } `}
+          disabled={buttonDisabled}
         >
           Create
         </button>
