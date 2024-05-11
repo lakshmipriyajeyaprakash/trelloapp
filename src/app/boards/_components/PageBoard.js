@@ -1,13 +1,12 @@
-"use client";
 import React, { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
 
 const PageBoard = ({ filtered }) => {
   const [inputtile, setInputTile] = useState(false);
   const [listValue, setListValue] = useState("");
-  const [cardValue, setCardValue] = useState("");
   const [listdata, setListData] = useState([]);
-  console.log(listdata);
+  const [cardInputs, setCardInputs] = useState({});
+
   const handleAddList = (e) => {
     e.preventDefault();
     const newListValue = listValue.trim();
@@ -22,9 +21,10 @@ const PageBoard = ({ filtered }) => {
       setInputTile(false);
     }
   };
+
   const handleAddCard = (listId) => {
-    const newCardValue = cardValue.trim();
-    if (newCardValue !== "") {
+    const newCardValue = cardInputs[listId]?.trim();
+    if (newCardValue !== undefined && newCardValue !== "") {
       const updatedLists = listdata.map((list) =>
         list.listid === listId
           ? {
@@ -36,9 +36,15 @@ const PageBoard = ({ filtered }) => {
             }
           : list
       );
-      setCardValue(""); // Clear the input after adding the card
+      const updatedCardInputs = { ...cardInputs, [listId]: "" }; // Clear the card input value
       setListData(updatedLists);
+      setCardInputs(updatedCardInputs);
     }
+  };
+
+  const handleCardInputChange = (listId, value) => {
+    const updatedCardInputs = { ...cardInputs, [listId]: value };
+    setCardInputs(updatedCardInputs);
   };
 
   return (
@@ -62,14 +68,17 @@ const PageBoard = ({ filtered }) => {
                 {listdata.length > 0 &&
                   listdata.map((list, listIndex) => (
                     <li key={listIndex} className="flex flex-col">
-                      <h2>{list.listValue}</h2>
+                      <div className="flex gap-5">
+                        <h2>{list.listValue}</h2>
+                      </div>
                       <ul>
-                        {listdata[listIndex].cards.length > 0 &&
-                          listdata[listIndex].cards.map((card, cardIndex) => (
-                            <li key={cardIndex}>
+                        {list.cards.map((card, cardIndex) => (
+                          <li key={cardIndex}>
+                            <div className="flex gap-2">
                               <span>{card.cardValue}</span>
-                            </li>
-                          ))}
+                            </div>
+                          </li>
+                        ))}
                       </ul>
                       <form
                         onSubmit={(e) => {
@@ -79,8 +88,10 @@ const PageBoard = ({ filtered }) => {
                       >
                         <input
                           type="text"
-                          value={cardValue}
-                          onChange={(e) => setCardValue(e.target.value)}
+                          value={cardInputs[list.listid] || ""}
+                          onChange={(e) =>
+                            handleCardInputChange(list.listid, e.target.value)
+                          }
                           placeholder="Add Card Name"
                         />
                         <button>Add Card</button>
