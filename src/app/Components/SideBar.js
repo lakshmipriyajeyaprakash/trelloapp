@@ -8,7 +8,7 @@ import {
 import { IoMdSettings } from "react-icons/io";
 const SideBar = () => {
   return (
-    <div className="fixed h-full flex flex-col left-0 top-16 bg-white w-38 sm:block hidden">
+    <div className="fixed h-full flex flex-col left-0 top-16 bg-gradient-to-t to-purple-300 from-blue-500 w-38 sm:block hidden">
       <ul className="flex flex-col flex-grow">
         <li className="flex flex-col justify-center items-center py-7 text-gray-500 text-lg">
           <HiUserGroup className="w-4 h-4" />

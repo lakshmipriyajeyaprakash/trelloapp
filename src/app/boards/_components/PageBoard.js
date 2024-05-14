@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { nanoid } from "@reduxjs/toolkit";
+import CardAdded from "./CardAdded";
 
 const PageBoard = ({ filtered }) => {
   const [inputtile, setInputTile] = useState(false);
@@ -8,17 +9,18 @@ const PageBoard = ({ filtered }) => {
   const [cardInputs, setCardInputs] = useState({});
 
   const handleAddList = (e) => {
-    e.preventDefault();
-    const newListValue = listValue.trim();
-    if (newListValue !== "") {
-      const listObject = {
-        listid: nanoid(),
-        listValue: newListValue,
-        cards: [],
-      };
-      setListData([...listdata, listObject]);
-      setListValue(""); // Clear the input after adding the list
-      setInputTile(false);
+    if (e.key === "Enter") {
+      const newListValue = listValue.trim();
+      if (newListValue !== "") {
+        const listObject = {
+          listid: nanoid(),
+          listValue: newListValue,
+          cards: [],
+        };
+        setListData([...listdata, listObject]);
+        setListValue(""); // Clear the input after adding the list
+        setInputTile(false);
+      }
     }
   };
 
@@ -64,55 +66,48 @@ const PageBoard = ({ filtered }) => {
               <h1 className="font-bold text-purple-800 sm:text-4xl text-2xl">
                 {boardPage.boardTitle}
               </h1>
-              <ul className="flex gap-6 flex-wrap">
-                {listdata.length > 0 &&
-                  listdata.map((list, listIndex) => (
-                    <li key={listIndex} className="flex flex-col">
-                      <div className="flex gap-5">
-                        <h2>{list.listValue}</h2>
-                      </div>
-                      <ul>
-                        {list.cards.map((card, cardIndex) => (
-                          <li key={cardIndex}>
-                            <div className="flex gap-2">
-                              <span>{card.cardValue}</span>
-                            </div>
-                          </li>
-                        ))}
-                      </ul>
-                      <form
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          handleAddCard(list.listid);
-                        }}
+              <div className="">
+                <ul className="flex gap-6 flex-wrap">
+                  {listdata.length > 0 &&
+                    listdata.map((list, listIndex) => (
+                      <li
+                        key={listIndex}
+                        className="flex flex-col w-25 bg-gray-200 rounded-sm p-2"
                       >
+                        <div className="flex gap-5">
+                          <h2>{list.listValue}</h2>
+                        </div>
+                        <CardAdded
+                          list={list}
+                          cardInputs={cardInputs}
+                          handleAddCard={handleAddCard}
+                          handleCardInputChange={handleCardInputChange}
+                        ></CardAdded>
+                      </li>
+                    ))}
+                  <div>
+                    {inputtile ? (
+                      <form className=" bg-gray-200 rounded-sm">
                         <input
                           type="text"
-                          value={cardInputs[list.listid] || ""}
-                          onChange={(e) =>
-                            handleCardInputChange(list.listid, e.target.value)
-                          }
-                          placeholder="Add Card Name"
+                          value={listValue}
+                          onChange={(e) => setListValue(e.target.value)}
+                          onKeyPress={handleAddList}
+                          placeholder="Add List Name"
+                          className="rounded-sm"
                         />
-                        <button>Add Card</button>
                       </form>
-                    </li>
-                  ))}
-                <div className="">
-                  <button onClick={() => setInputTile(true)}>Add List</button>
-                  {inputtile && (
-                    <form onSubmit={handleAddList}>
-                      <input
-                        type="text"
-                        value={listValue}
-                        onChange={(e) => setListValue(e.target.value)}
-                        placeholder="Add List Name"
-                      />
-                      <button type="submit">Save</button>
-                    </form>
-                  )}
-                </div>
-              </ul>
+                    ) : (
+                      <button
+                        onClick={() => setInputTile(true)}
+                        className="bg-blue-200 w-25 rounded-sm"
+                      >
+                        Add List
+                      </button>
+                    )}
+                  </div>
+                </ul>
+              </div>
             </div>
           </div>
         ))
