@@ -72,9 +72,9 @@ const PageBoard = ({ filtered }) => {
                     listdata.map((list, listIndex) => (
                       <li
                         key={listIndex}
-                        className="flex flex-col w-25 bg-gray-200 rounded-sm p-2"
+                        className="flex flex-col w-25 bg-gray-200 rounded-sm p-1"
                       >
-                        <div className="flex gap-5">
+                        <div className="flex gap-5 border-slate-100 mt-2 ml-2 mr-2">
                           <h2>{list.listValue}</h2>
                         </div>
                         <CardAdded
