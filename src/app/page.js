@@ -12,7 +12,10 @@ export default function Home() {
   };
   return (
     <div className="ml-30 mt-16 p-5">
-      <TrelloBoard handleFormCreate={handleFormCreate}></TrelloBoard>
+      <TrelloBoard
+        handleFormCreate={handleFormCreate}
+        formCreate={formCreate}
+      ></TrelloBoard>
       <BoardCreate
         formCreate={formCreate}
         formClose={handleFormClose}

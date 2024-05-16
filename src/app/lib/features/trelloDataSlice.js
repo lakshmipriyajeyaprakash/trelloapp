@@ -5,10 +5,10 @@ const initialBoards = JSON.parse(localStorage.getItem("boards")) || [
     boardId: nanoid(),
     boardCount: 1,
     boardTitle: "Example Board",
-    background:
-      "https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800",
+    background: `url(https://images.pexels.com/photos/106399/pexels-photo-106399.jpeg?auto=compress&cs=tinysrgb&w=800)`,
   },
 ];
+console.log(initialBoards);
 const initialState = {
   boards: initialBoards,
 };
