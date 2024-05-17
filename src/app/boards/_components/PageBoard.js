@@ -7,6 +7,7 @@ const PageBoard = ({ filtered }) => {
   const [listValue, setListValue] = useState("");
   const [listdata, setListData] = useState([]);
   const [cardInputs, setCardInputs] = useState({});
+  const [editingCard, setEditingCard] = useState(null);
 
   const handleAddList = (e) => {
     if (e.key === "Enter") {
@@ -49,6 +50,24 @@ const PageBoard = ({ filtered }) => {
     setCardInputs(updatedCardInputs);
   };
 
+  const handleCardEditChange = (listId, cardId, value) => {
+    const updatedLists = listdata.map((list) =>
+      list.listid === listId
+        ? {
+            ...list,
+            cards: list.cards.map((card) =>
+              card.cardid === cardId ? { ...card, cardValue: value } : card
+            ),
+          }
+        : list
+    );
+    setListData(updatedLists);
+  };
+
+  const handleSaveEdit = () => {
+    setEditingCard(null);
+  };
+
   return (
     <div>
       {filtered.length > 0 ? (
@@ -71,7 +90,7 @@ const PageBoard = ({ filtered }) => {
                   {listdata.length > 0 &&
                     listdata.map((list, listIndex) => (
                       <li
-                        key={listIndex}
+                        key={list.listid}
                         className="flex flex-col w-25 bg-gray-200 rounded-sm p-1"
                       >
                         <div className="flex gap-5 border-slate-100 mt-2 ml-2 mr-2">
@@ -82,7 +101,11 @@ const PageBoard = ({ filtered }) => {
                           cardInputs={cardInputs}
                           handleAddCard={handleAddCard}
                           handleCardInputChange={handleCardInputChange}
-                        ></CardAdded>
+                          handleCardEditChange={handleCardEditChange}
+                          handleSaveEdit={handleSaveEdit}
+                          editingCard={editingCard}
+                          setEditingCard={setEditingCard}
+                        />
                       </li>
                     ))}
                   <div>

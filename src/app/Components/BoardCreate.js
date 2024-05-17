@@ -65,6 +65,7 @@ const BoardCreate = ({ formCreate, formClose }) => {
               {ImagesList.map((image, index) => (
                 <div key={image.id}>
                   <button
+                    key={image.id}
                     style={{
                       backgroundImage: `url(${image.src})`,
                       height: "50px",
