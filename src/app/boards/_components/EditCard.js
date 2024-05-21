@@ -9,7 +9,7 @@ const EditCard = ({ handleCardEditChange, handleSaveEdit, list, card }) => {
         onChange={(e) =>
           handleCardEditChange(list.listid, card.cardid, e.target.value)
         }
-        onBlur={() => handleSaveEdit(list.listid, card.cardid)}
+        onBlur={() => handleSaveEdit()}
         autoFocus
       />
     </div>

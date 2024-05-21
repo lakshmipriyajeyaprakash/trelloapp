@@ -15,7 +15,7 @@ const BoardCreate = ({ formCreate, formClose }) => {
   const router = useRouter();
   const [boardTitle, setBoardTitle] = useState("");
   const [background, setBackground] = useState("");
-  console.log(background);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const boardId = nanoid();
@@ -72,12 +72,16 @@ const BoardCreate = ({ formCreate, formClose }) => {
                       width: "50px",
                       backgroundSize: "contain",
                     }}
-                    className="rounded-lg"
                     onClick={(e) => {
                       e.preventDefault();
                       console.log(e.target.style.backgroundImage);
-                      setBackground(e.target.style.backgroundImage);
+                      setBackground(`url(${image.src})`);
                     }}
+                    className={`rounded-lg hover:shadow-sm shadow-gray-800 ease-in-out ${
+                      `url(${image.src})` === background
+                        ? "border border-purple-800"
+                        : ""
+                    }`}
                   ></button>
                 </div>
               ))}

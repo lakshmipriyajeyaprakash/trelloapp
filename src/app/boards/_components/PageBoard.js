@@ -8,6 +8,7 @@ const PageBoard = ({ filtered }) => {
   const [listdata, setListData] = useState([]);
   const [cardInputs, setCardInputs] = useState({});
   const [editingCard, setEditingCard] = useState(null);
+  const [editingList, setEditingList] = useState(null);
 
   const handleAddList = (e) => {
     if (e.key === "Enter") {
@@ -68,6 +69,13 @@ const PageBoard = ({ filtered }) => {
     setEditingCard(null);
   };
 
+  const handleEditListName = (listId, newName) => {
+    const updatedLists = listdata.map((list) =>
+      list.listid === listId ? { ...list, listValue: newName } : list
+    );
+    setListData(updatedLists);
+  };
+
   return (
     <div>
       {filtered.length > 0 ? (
@@ -94,7 +102,21 @@ const PageBoard = ({ filtered }) => {
                         className="flex flex-col w-25 bg-gray-200 rounded-sm p-1"
                       >
                         <div className="flex gap-5 border-slate-100 mt-2 ml-2 mr-2">
-                          <h2>{list.listValue}</h2>
+                          {editingList === list.listid ? (
+                            <input
+                              type="text"
+                              value={list.listValue}
+                              onChange={(e) =>
+                                handleEditListName(list.listid, e.target.value)
+                              }
+                              onBlur={() => setEditingList(null)} // Save and exit editing on blur
+                              autoFocus
+                            />
+                          ) : (
+                            <h2 onClick={() => setEditingList(list.listid)}>
+                              {list.listValue}
+                            </h2>
+                          )}
                         </div>
                         <CardAdded
                           list={list}
