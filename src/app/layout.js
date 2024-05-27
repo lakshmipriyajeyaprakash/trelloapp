@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <ReduxProvider>
-          <div className="min-w-full min-h-screen bg-blue-100">
+          <div className="min-w-full min-h-screen bg-white">
             <TopBar />
             <SideBar />
             {children}
