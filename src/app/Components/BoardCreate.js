@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from "../lib/hooks";
 import { nanoid } from "@reduxjs/toolkit";
 import { IoMdClose } from "react-icons/io";
 
-const BoardCreate = ({ formCreate, formClose }) => {
+const BoardCreate = ({ formCreate, formClose, setNavSelected }) => {
   const dispatch = useAppDispatch();
   const boards = useAppSelector((state) => state.boards);
   console.log(boards.length);
@@ -23,6 +23,8 @@ const BoardCreate = ({ formCreate, formClose }) => {
 
     router.push(`/boards/${boardId}`);
     setBoardTitle("");
+    formClose();
+    setNavSelected("");
   };
   const buttonDisabled =
     boardTitle.trim() === "" || background === "" ? true : false;

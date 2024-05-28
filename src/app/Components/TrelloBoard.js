@@ -1,5 +1,4 @@
-"use client";
-import React, { useState } from "react";
+import React from "react";
 import { useAppSelector } from "../lib/hooks";
 import Link from "next/link";
 
@@ -22,12 +21,12 @@ const TrelloBoard = ({ handleFormCreate, formCreate }) => {
                 width: "180px",
               }}
             >
-              <h1>{board.boardTitle}</h1>
+              <h1 className="text-black font-bold">{board.boardTitle}</h1>
             </Link>
           ))}
         {!formCreate && (
           <div
-            className="shadow-sm p-3 hover:shadow-lg hover:shadow-blue-500 cursor-pointer hover:scale-105 transition-all ease-in-out h-auto w-auto mt-auto"
+            className="shadow-sm p-3 hover:shadow-lg hover:shadow-blue-500 cursor-pointer hover:scale-105 transition-all ease-in-out h-auto w-auto mt-auto bg-slate-100"
             onClick={handleFormCreate}
             style={{
               height: "100px",

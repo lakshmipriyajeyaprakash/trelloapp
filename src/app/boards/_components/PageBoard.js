@@ -139,7 +139,7 @@ const PageBoard = ({ filtered }) => {
             className="bg-image min-h-screen"
           >
             <div className="sm:ml-40 mt-16 p-2 md:p-5 flex flex-col gap-5">
-              <h1 className="font-bold text-gray-100 sm:text-4xl text-2xl">
+              <h1 className="font-bold text-black sm:text-4xl text-2xl">
                 {boardPage.boardTitle}
               </h1>
               <div className="">

@@ -1,12 +1,15 @@
 "use client";
-import React, { useState } from "react";
+
 import { HiOutlineSearch } from "react-icons/hi";
 import { HiMiniAtSymbol } from "react-icons/hi2";
 import { FaBell } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
+import BoardCreate from "./BoardCreate";
+
 const TopBar = () => {
   const [navSelected, setNavSelected] = useState("");
+  const [showCreateBoard, setShowCreateBoard] = useState(false);
   return (
     <div className="h-16 bg-slate-100 w-full flex items-center justify-between px-2 fixed top-0">
       <div className="flex gap-2">
@@ -47,7 +50,10 @@ const TopBar = () => {
             className={`mt-5 hover:text-blue-400 bg-transparent ${
               navSelected === "Create" ? "text-blue-300" : ""
             }`}
-            onClick={() => setNavSelected("Create")}
+            onClick={() => {
+              setNavSelected("Create");
+              setShowCreateBoard(true);
+            }}
           >
             Create
           </Link>
@@ -76,6 +82,15 @@ const TopBar = () => {
           ></Image>
         </div>
       </div>
+      {showCreateBoard && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+          <BoardCreate
+            formCreate={showCreateBoard}
+            formClose={() => setShowCreateBoard(false)}
+            setNavSelected={setNavSelected}
+          />
+        </div>
+      )}
     </div>
   );
 };
