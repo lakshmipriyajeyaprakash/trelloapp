@@ -1,5 +1,5 @@
 "use client";
-
+import React, { useState } from "react";
 import { HiOutlineSearch } from "react-icons/hi";
 import { HiMiniAtSymbol } from "react-icons/hi2";
 import { FaBell } from "react-icons/fa";
