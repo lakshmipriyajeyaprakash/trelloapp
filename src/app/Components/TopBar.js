@@ -1,14 +1,14 @@
 "use client";
 import React, { useState } from "react";
-import { HiOutlineSearch } from "react-icons/hi";
+/*import { HiOutlineSearch } from "react-icons/hi";
 import { HiMiniAtSymbol } from "react-icons/hi2";
-import { FaBell } from "react-icons/fa";
+import { FaBell } from "react-icons/fa";*/
 import Image from "next/image";
 import Link from "next/link";
 import BoardCreate from "./BoardCreate";
 
 const TopBar = () => {
-  const [navSelected, setNavSelected] = useState("");
+  const [navSelected, setNavSelected] = useState("Workspaces");
   const [showCreateBoard, setShowCreateBoard] = useState(false);
   return (
     <div className="h-16 bg-slate-100 w-full flex items-center justify-between px-2 fixed top-0">
@@ -39,16 +39,19 @@ const TopBar = () => {
           <Link
             href="/"
             className={`mt-5 ml-3 hover:text-blue-400 bg-transparent ${
-              navSelected === "Workspaces" ? "text-blue-300" : ""
+              navSelected === "Workspaces" ? "text-blue-300" : "text-black"
             }`}
-            onClick={() => setNavSelected("Workspaces")}
+            onClick={() => {
+              setNavSelected("Workspaces");
+              setShowCreateBoard(false);
+            }}
           >
             Workspaces
           </Link>
           <Link
             href="/"
             className={`mt-5 hover:text-blue-400 bg-transparent ${
-              navSelected === "Create" ? "text-blue-300" : ""
+              navSelected === "Create" ? "text-blue-300" : "text-black"
             }`}
             onClick={() => {
               setNavSelected("Create");
@@ -83,11 +86,11 @@ const TopBar = () => {
         </div>
       </div>
       {showCreateBoard && (
-        <div className="fixed inset-0 flex items-center justify-center z-50 bg-gray-800 bg-opacity-75">
+        <div className="fixed inset-0 flex items-center justify-center z-50">
           <BoardCreate
             formCreate={showCreateBoard}
+            setNavSelected={navSelected}
             formClose={() => setShowCreateBoard(false)}
-            setNavSelected={setNavSelected}
           />
         </div>
       )}
