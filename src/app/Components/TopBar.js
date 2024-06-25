@@ -8,7 +8,7 @@ import Link from "next/link";
 import BoardCreate from "./BoardCreate";
 
 const TopBar = () => {
-  const [navSelected, setNavSelected] = useState("Workspaces");
+  const [navSelected, setNavSelected] = useState("");
   const [showCreateBoard, setShowCreateBoard] = useState(false);
   return (
     <div className="h-16 bg-slate-100 w-full flex items-center justify-between px-2 fixed top-0">
